@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>Business case — Jornada de Boas-Vindas do Novo Doador Regular</title>
+<meta name="robots" content="noindex, nofollow">
 <style>
   :root{
     --ink:#0c3a39;        /* TwoPurpose dark green */
@@ -92,6 +92,27 @@
   .comm{max-height:260px;overflow:auto;border:1px solid var(--mint)}
   .comm table{font-size:12.5px}
   .comm thead th{position:sticky;top:0}
+
+  .ficha summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+  .ficha summary::-webkit-details-marker{display:none}
+  .ficha summary .h2{font-size:14px;font-weight:600;color:var(--ink)}
+  .ficha summary .hint{font-size:13px;color:var(--muted);font-weight:300}
+  .ficha summary:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+  .ficha-body{margin-top:12px}
+  .ficha:not([open]) summary .hint::after{content:" — clique para abrir";color:var(--purple)}
+  .ficha:not([open]){padding-bottom:16px}
+  /* modo embed (?embed=1): sem cabeçalho, coluna única, ficha em cima */
+  body.embed header{display:none}
+  body.embed .wrap{padding:12px 14px 28px;max-width:none}
+  body.embed .grid{grid-template-columns:1fr;gap:18px}
+  body.embed .ficha-body{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;align-items:start}
+  body.embed .ficha-body button,body.embed .ficha-body .flag{grid-column:1/-1}
+  @media (max-width:760px){body.embed .ficha-body{grid-template-columns:1fr}}
+  body.embed .lead .n{font-size:40px}
+  body.embed #c1,body.embed #c2{max-width:1100px}
+  body.embed .ficha-body button{width:max-content}
+  body.embed .comm{max-height:200px}
+  body.embed footer{margin-top:16px}
 </style>
 </head>
 <body>
@@ -101,20 +122,20 @@
     <h1>Business case — Jornada de Boas-Vindas do Novo Doador Regular Digital</h1>
     <p>Quanto vale reter os doadores regulares angariados pela agência? Ajuste os pressupostos à esquerda; o modelo recalcula em tempo real. Curva de retenção com a forma do M+R Benchmarks 2026 e alvos do plano de campanha.</p>
   </div>
-  <div class="stamp">Ferramenta TwoPurpose · valores por defeito são genéricos — ajuste aos seus dados</div>
+  <div class="stamp">Ferramenta TwoPurpose · valores por defeito são <b>genéricos</b> — ajuste aos seus dados</div>
 </header>
 
 <div class="grid">
-  <aside class="ficha" aria-label="Pressupostos">
-    <h2>Pressupostos</h2>
-    <p class="sub">Edite qualquer valor. Os alvos do cenário «com jornada» são hipóteses do plano.</p>
+  <details class="ficha" id="ficha" open>
+    <summary><span class="h2">Pressupostos</span><span class="hint">Edite qualquer valor. Os alvos do cenário «com jornada» são hipóteses do plano.</span></summary>
+    <div class="ficha-body">
 
     <fieldset>
       <legend>Aquisição (agência)</legend>
       <div class="row"><label for="donors">Novos doadores por mês</label><input id="donors" type="number" min="1" step="1" value="10"></div>
       <div class="row"><label for="months">Meses de aquisição <small>piloto contratado: 6</small></label><input id="months" type="number" min="1" max="36" step="1" value="12"></div>
       <div class="row"><label for="gift">Donativo médio mensal (€)</label><input id="gift" type="number" min="1" step="0.5" value="10"></div>
-      <div class="row"><label for="cac">Custo de aquisição (€) <small>a confirmar</small></label><input id="cac" type="number" min="0" step="5" value="100"></div>
+      <div class="row"><label for="cac">Custo de aquisição (€) <small>valor pago à agência por doador</small></label><input id="cac" type="number" min="0" step="5" value="100"></div>
       <div class="row"><label for="feem">Comissão devida na cobrança n.º</label><input id="feem" type="number" min="1" max="6" step="1" value="2"></div>
     </fieldset>
 
@@ -128,7 +149,8 @@
     </fieldset>
     <button id="reset" type="button">Repor valores por defeito</button>
     <p class="flag">Forma da curva após 12 meses: rácio 24/12 meses do M+R 2026 (55/71) e perda de 1,5% ao mês daí em diante.</p>
-  </aside>
+    </div>
+  </details>
 
   <main>
     <section class="hero" aria-label="Doadores ativos por mês">
@@ -156,20 +178,20 @@
       </section>
       <section>
         <h3>Receita acumulada vs. comissões pagas</h3>
-        <svg id="c2" viewBox="0 0 520 300" role="img" aria-label="Receita acumulada e comissões acumuladas por mês"></svg>
+        <svg id="c2" viewBox="0 0 900 260" role="img" aria-label="Receita acumulada e comissões acumuladas por mês"></svg>
         <div class="legend"><span><i class="b"></i>receita — atual</span><span><i class="i"></i>receita — com jornada</span><span><i class="d"></i>comissões pagas (com jornada)</span></div>
         <p class="note">Break-even (receita acumulada iguala as comissões pagas): <b id="be-b">—</b> no cenário atual; <b id="be-i">—</b> com jornada.</p>
       </section>
     </div>
 
     <h3>Controlo das comissões à agência, mês a mês</h3>
-    <p class="note" style="margin:0 0 8px">Quantos doadores de cada coorte chegam à cobrança que desencadeia a comissão, e quanto fica devido nesse mês. Cenário com jornada. Serve de referência para validar a fatura da agência; a regra contratual exata deve ser confirmada pela organização.</p>
+    <p class="note" style="margin:0 0 8px">Quantos doadores de cada coorte chegam à cobrança que desencadeia a comissão, e quanto fica devido nesse mês. Cenário com jornada. Serve de referência para validar a fatura da agência; a regra contratual exata deve ser confirmada no contrato com a agência.</p>
     <div class="comm"><table id="t2"><thead><tr><th>Mês</th><th>Novos doadores</th><th>Atingem a cobrança n.º <span class="feem-echo">2</span></th><th>Comissão devida</th><th>Acumulado</th></tr></thead><tbody></tbody></table></div>
   </main>
 </div>
 
 <footer>
-  <span>Fontes: M+R Benchmarks 2026 (mrbenchmarks.com/fundraising); Dataro, Recurring Giving Benchmark 2024 e análise de retenção (fev/2025). Pressupostos a validar pela organização.</span>
+  <span>Fontes: M+R Benchmarks 2026 (mrbenchmarks.com/fundraising); Dataro, Recurring Giving Benchmark 2024 e análise de retenção (fev/2025). Pressupostos a validar com os dados da organização.</span>
   <span>TwoPurpose Portugal · preparado com apoio de IA e revisto pela equipa</span>
 </footer>
 </div>
@@ -261,7 +283,7 @@
     $('t1').querySelector('tfoot').innerHTML=`<tr><td>Resultado líquido a 36 meses (receita − comissões)</td><td>${fmtE(b.cumRev[H]-b.cumFee[H])}</td><td>${fmtE(i.cumRev[H]-i.cumFee[H])}</td><td class="delta">${(netDelta>=0?'+':'−')+fmtE(Math.abs(netDelta))}</td></tr>`;
 
     // chart 2: cumulative revenue vs fees
-    const W2=520,H2=300,p2={l:56,r:12,t:12,b:34};
+    const W2=900,H2=260,p2={l:56,r:12,t:12,b:34};
     const ymax2=nice(Math.max(i.cumRev[H],b.cumRev[H],i.cumFee[H])*1.08);
     const X2=m=>p2.l+(W2-p2.l-p2.r)*m/H, Y2=v=>p2.t+(H2-p2.t-p2.b)*(1-v/ymax2);
     let s2=axes(W2,H2,p2,ymax2,v=>fmtN(v/1000)+' k€','meses');
@@ -277,22 +299,10 @@
     for(let m=0;m<=H;m++){if(i.feeN[m]<=0&&m>p.months+p.feem)break;acc+=i.fee[m];const nd=m<p.months?p.donors:0;tb+=`<tr><td>${m+1}</td><td>${nd?fmtN(nd):'—'}</td><td>${i.feeN[m]?fmtN(i.feeN[m]):'—'}</td><td>${i.fee[m]?fmtE(i.fee[m]):'—'}</td><td>${fmtE(acc)}</td></tr>`;}
     $('t2').querySelector('tbody').innerHTML=tb;
   }
-  // Sobreposição por parâmetros de URL: ?donors=10&cac=120…
-  // Também substitui os valores por defeito, para que «Repor valores por defeito»
-  // reponha os valores do URL e não os genéricos.
-  (function applyQuery(){
-    const qs=new URLSearchParams(window.location.search);
-    IDS.forEach(k=>{
-      if(!qs.has(k))return;
-      const raw=(qs.get(k)||'').trim();
-      if(raw==='')return;
-      const v=Number(raw);
-      if(!Number.isFinite(v))return;
-      DEF[k]=v;
-      $(k).value=v;
-    });
-  })();
-
+  // Parâmetros de URL: ?embed=1 esconde o cabeçalho; qualquer id de input pode ser pré-preenchido (ex.: ?cac=120&gift=10)
+  const Q=new URLSearchParams(window.location.search);
+  if(Q.get('embed')==='1'){document.body.classList.add('embed');if(window.innerWidth<1000)$('ficha').removeAttribute('open');}
+  IDS.forEach(k=>{if(Q.has(k)){const v=parseFloat(Q.get(k));if(Number.isFinite(v)){$(k).value=v;DEF[k]=v;}}});
   IDS.forEach(k=>$(k).addEventListener('input',draw));
   $('reset').addEventListener('click',()=>{IDS.forEach(k=>$(k).value=DEF[k]);draw();});
   draw();
