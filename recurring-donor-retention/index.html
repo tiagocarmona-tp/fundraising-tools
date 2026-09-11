@@ -136,7 +136,7 @@
       <div class="row"><label for="months">Meses de aquisição <small>piloto contratado: 6</small></label><input id="months" type="number" min="1" max="36" step="1" value="12"></div>
       <div class="row"><label for="gift">Donativo médio mensal (€)</label><input id="gift" type="number" min="1" step="0.5" value="10"></div>
       <div class="row"><label for="cac">Custo de aquisição (€) <small>valor pago à agência por doador</small></label><input id="cac" type="number" min="0" step="5" value="100"></div>
-      <div class="row"><label for="feem">Comissão devida na cobrança n.º</label><input id="feem" type="number" min="1" max="6" step="1" value="2"></div>
+      <div class="row"><label for="feem">Comissão devida N meses após a 1.ª cobrança <small>1 = na 2.ª cobrança; 2 = na 3.ª</small></label><input id="feem" type="number" min="1" max="6" step="1" value="1"></div>
     </fieldset>
 
     <fieldset>
@@ -174,7 +174,7 @@
           <tbody></tbody>
           <tfoot></tfoot>
         </table>
-        <p class="note">Receita = doadores ativos × donativo médio, por mês. Comissões = doadores que atingem a cobrança n.º <span id="feem-echo">2</span> × CAC.</p>
+        <p class="note">Receita = doadores ativos × donativo médio, por mês. Comissões = doadores ainda ativos <span id="feem-echo">1</span> mês/meses após a 1.ª cobrança × CAC.</p>
       </section>
       <section>
         <h3>Receita acumulada vs. comissões pagas</h3>
@@ -185,8 +185,8 @@
     </div>
 
     <h3>Controlo das comissões à agência, mês a mês</h3>
-    <p class="note" style="margin:0 0 8px">Quantos doadores de cada coorte chegam à cobrança que desencadeia a comissão, e quanto fica devido nesse mês. Cenário com jornada. Serve de referência para validar a fatura da agência; a regra contratual exata deve ser confirmada no contrato com a agência.</p>
-    <div class="comm"><table id="t2"><thead><tr><th>Mês</th><th>Novos doadores</th><th>Atingem a cobrança n.º <span class="feem-echo">2</span></th><th>Comissão devida</th><th>Acumulado</th></tr></thead><tbody></tbody></table></div>
+    <p class="note" style="margin:0 0 8px">Quantos doadores de cada coorte continuam ativos no momento em que a comissão fica devida, e quanto fica devido nesse mês. Cenário com jornada. Serve de referência para validar a fatura da agência; a regra contratual exata deve ser confirmada no contrato com a agência.</p>
+    <div class="comm"><table id="t2"><thead><tr><th>Mês</th><th>Novos doadores</th><th>Ativos ao fim de <span class="feem-echo">1</span> mês/meses</th><th>Comissão devida</th><th>Acumulado</th></tr></thead><tbody></tbody></table></div>
   </main>
 </div>
 
@@ -200,7 +200,7 @@
 (function(){
   const $=id=>document.getElementById(id);
   const IDS=['donors','months','gift','cac','feem','c60b','c60i','failb','faili','recb','reci','r12b','r12i'];
-  const DEF={donors:10,months:12,gift:10,cac:100,feem:2,c60b:10,c60i:8,failb:10,faili:10,recb:0,reci:50,r12b:71,r12i:76};
+  const DEF={donors:10,months:12,gift:10,cac:100,feem:1,c60b:10,c60i:8,failb:10,faili:10,recb:0,reci:50,r12b:71,r12i:76};
   const H=36, R24_OVER_R12=55/71, LATE=0.015;
   const fmtN=x=>Math.round(x).toLocaleString('pt-PT');
   const fmtE=x=>Math.round(x).toLocaleString('pt-PT')+' €';
