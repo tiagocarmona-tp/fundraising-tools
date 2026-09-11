@@ -121,6 +121,12 @@
   body.embed h3{margin:16px 0 6px}
   body.embed .comm{max-height:200px}
   body.embed footer{flex:0 0 auto;margin-top:8px;padding-top:8px}
+  /* campos numéricos mais estreitos: sobra largura para as etiquetas não partirem */
+  body.embed .row{grid-template-columns:1fr 72px}
+  body.embed .pair,body.embed .pairhead{grid-template-columns:1fr 72px 72px}
+  /* embed largo (ex.: página Notion full-width): alarga a coluna de pressupostos,
+     que de outro modo parte as etiquetas em 3 linhas e obriga a rolar a ficha */
+  @media (min-width:1200px){body.embed .grid{grid-template-columns:360px minmax(0,1fr)}}
   /* embed estreito: volta a empilhar, e é a grelha que passa a rolar.
      720px em vez de 900px para que uma página Notion de largura normal (~900px)
      continue a mostrar a coluna de pressupostos ao lado do gráfico. */
