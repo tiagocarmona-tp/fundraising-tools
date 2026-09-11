@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Business case — Jornada de Boas-Vindas do Novo Doador Regular</title>
+<style>
+  :root{
+    --ink:#0c3a39;        /* TwoPurpose dark green */
+    --purple:#c650ff;     /* TwoPurpose purple */
+    --purple-soft:#d77dff;
+    --sage:#869d9d;
+    --mint:#dce6e5;
+    --paper:#ffffff;
+    --line:#cfd8d7;
+    --text:#1d2a2a;
+    --muted:#5b6b6b;
+    --base:#869d9d;       /* cenário atual */
+    --impr:#c650ff;       /* cenário com jornada */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:300;font-size:15px;line-height:1.5}
+  strong,b,th,legend{font-weight:600}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 24px 48px}
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;border-bottom:3px solid var(--purple);padding-bottom:16px;margin-bottom:24px;flex-wrap:wrap}
+  header h1{font-size:26px;line-height:1.2;margin:0 0 6px;color:var(--ink);font-weight:600;max-width:46ch}
+  header p{margin:0;color:var(--muted);max-width:70ch}
+  .stamp{color:var(--muted);font-size:13px;text-align:right;min-width:260px}
+  .grid{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:start}
+  @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+  /* Ficha de pressupostos */
+  .ficha{border:1px solid var(--line);border-top:6px solid var(--ink);padding:18px 18px 8px;background:#fbfcfc}
+  .ficha h2{font-size:14px;margin:0 0 4px;color:var(--ink)}
+  .ficha .sub{font-size:13px;color:var(--muted);margin:0 0 14px}
+  fieldset{border:0;margin:0 0 14px;padding:0}
+  legend{font-size:12px;color:var(--purple);padding:0;margin-bottom:8px;letter-spacing:.01em}
+  .row{display:grid;grid-template-columns:1fr 84px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--mint)}
+  .row:last-child{border-bottom:0}
+  .row label{font-size:13px;color:var(--text)}
+  .row label small{display:block;color:var(--muted);font-size:11.5px;font-weight:300}
+  .row input{width:100%;font:inherit;font-weight:600;font-size:14px;color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:5px 7px;text-align:right;background:#fff}
+  .row input:focus{outline:2px solid var(--purple);outline-offset:1px;border-color:var(--purple)}
+  .pair{display:grid;grid-template-columns:1fr 84px 84px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--mint)}
+  .pair label{font-size:13px}
+  .pair input{width:100%;font:inherit;font-weight:600;font-size:14px;border:1px solid var(--line);border-radius:3px;padding:5px 7px;text-align:right;background:#fff}
+  .pair input.b{color:var(--muted)}
+  .pair input.i{color:var(--ink);border-color:var(--purple-soft)}
+  .pair input:focus{outline:2px solid var(--purple);outline-offset:1px}
+  .pairhead{display:grid;grid-template-columns:1fr 84px 84px;gap:10px;font-size:11.5px;color:var(--muted);padding-bottom:2px}
+  .pairhead span:nth-child(2){text-align:right}
+  .pairhead span:nth-child(3){text-align:right;color:var(--purple)}
+  .ficha button{font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--ink);padding:7px 12px;cursor:pointer;margin:6px 0 10px}
+  .ficha button:hover{background:var(--mint)}
+  .ficha button:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+  .flag{font-size:12px;color:var(--muted);margin:8px 0 6px;padding-left:10px;border-left:2px solid var(--purple-soft)}
+
+  /* Resultado */
+  .hero{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:18px}
+  .hero h2{font-size:18px;color:var(--ink);margin:0 0 2px}
+  .hero p{margin:0 0 10px;color:var(--muted);font-size:13.5px;max-width:78ch}
+  .lead{display:flex;gap:36px;flex-wrap:wrap;margin:8px 0 14px}
+  .lead div{min-width:150px}
+  .lead .n{font-size:34px;font-weight:600;color:var(--ink);line-height:1.05}
+  .lead .n.p{color:var(--purple)}
+  .lead .l{font-size:12.5px;color:var(--muted)}
+  .lead .l b{color:var(--text)}
+  svg{width:100%;height:auto;display:block}
+  .axis text{font-size:11px;fill:var(--muted);font-family:inherit;font-weight:300}
+  .axis line,.axis path{stroke:var(--line)}
+  .grid-l{stroke:var(--mint);stroke-width:1}
+  .legend{display:flex;gap:18px;font-size:12.5px;color:var(--muted);margin-top:6px;flex-wrap:wrap}
+  .legend i{display:inline-block;width:18px;height:0;border-top:3px solid;vertical-align:middle;margin-right:6px}
+  .legend i.b{border-color:var(--base)}
+  .legend i.i{border-color:var(--impr)}
+  .legend i.d{border-color:var(--ink);border-top-style:dashed}
+
+  h3{font-size:15px;color:var(--ink);margin:22px 0 8px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{padding:7px 10px;white-space:nowrap;border-bottom:1px solid var(--mint);text-align:right;vertical-align:top}
+  th:first-child,td:first-child{text-align:left;white-space:normal}
+  thead th{background:var(--mint);color:var(--ink);font-size:12.5px;text-align:right}
+  thead th:first-child{text-align:left}
+  tfoot td{background:#efefef;font-weight:600}
+  td.delta{color:var(--purple);font-weight:600}
+  .two{display:grid;grid-template-columns:1fr;gap:8px}
+  #c2{max-width:640px}
+  .note{font-size:12.5px;color:var(--muted);margin-top:10px;max-width:80ch}
+  .note a{color:var(--ink)}
+  footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .comm{max-height:260px;overflow:auto;border:1px solid var(--mint)}
+  .comm table{font-size:12.5px}
+  .comm thead th{position:sticky;top:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Business case — Jornada de Boas-Vindas do Novo Doador Regular Digital</h1>
+    <p>Quanto vale reter os doadores regulares angariados pela agência? Ajuste os pressupostos à esquerda; o modelo recalcula em tempo real. Curva de retenção com a forma do M+R Benchmarks 2026 e alvos do plano de campanha.</p>
+  </div>
+  <div class="stamp">Ferramenta TwoPurpose · valores por defeito são genéricos — ajuste aos seus dados</div>
+</header>
+
+<div class="grid">
+  <aside class="ficha" aria-label="Pressupostos">
+    <h2>Pressupostos</h2>
+    <p class="sub">Edite qualquer valor. Os alvos do cenário «com jornada» são hipóteses do plano.</p>
+
+    <fieldset>
+      <legend>Aquisição (agência)</legend>
+      <div class="row"><label for="donors">Novos doadores por mês</label><input id="donors" type="number" min="1" step="1" value="10"></div>
+      <div class="row"><label for="months">Meses de aquisição <small>piloto contratado: 6</small></label><input id="months" type="number" min="1" max="36" step="1" value="12"></div>
+      <div class="row"><label for="gift">Donativo médio mensal (€)</label><input id="gift" type="number" min="1" step="0.5" value="10"></div>
+      <div class="row"><label for="cac">Custo de aquisição (€) <small>a confirmar</small></label><input id="cac" type="number" min="0" step="5" value="100"></div>
+      <div class="row"><label for="feem">Comissão devida na cobrança n.º</label><input id="feem" type="number" min="1" max="6" step="1" value="2"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Retenção</legend>
+      <div class="pairhead"><span></span><span>atual</span><span>com jornada</span></div>
+      <div class="pair"><label for="c60b">Cancelamento voluntário até 60 dias (%)</label><input class="b" id="c60b" type="number" min="0" max="100" step="1" value="10"><input class="i" id="c60i" type="number" min="0" max="100" step="1" value="8"></div>
+      <div class="pair"><label for="failb">Cobranças falhadas até 60 dias (%)</label><input class="b" id="failb" type="number" min="0" max="100" step="1" value="10"><input class="i" id="faili" type="number" min="0" max="100" step="1" value="10"></div>
+      <div class="pair"><label for="recb">Cobranças falhadas recuperadas (%)</label><input class="b" id="recb" type="number" min="0" max="100" step="5" value="0"><input class="i" id="reci" type="number" min="0" max="100" step="5" value="50"></div>
+      <div class="pair"><label for="r12b">Retenção aos 12 meses, sem cobranças falhadas (%) <small>M+R 2026: 71</small></label><input class="b" id="r12b" type="number" min="1" max="100" step="1" value="71"><input class="i" id="r12i" type="number" min="1" max="100" step="1" value="76"></div>
+    </fieldset>
+    <button id="reset" type="button">Repor valores por defeito</button>
+    <p class="flag">Forma da curva após 12 meses: rácio 24/12 meses do M+R 2026 (55/71) e perda de 1,5% ao mês daí em diante.</p>
+  </aside>
+
+  <main>
+    <section class="hero" aria-label="Doadores ativos por mês">
+      <h2>Doadores ativos ao longo de 36 meses</h2>
+      <p>Coortes acumuladas. A linha tracejada marca o mês em que um doador recupera o custo da sua aquisição — antes dela, cada cancelamento é um investimento perdido.</p>
+      <div class="lead">
+        <div><div class="n p" id="k-extra">—</div><div class="l">doadores ativos <b>a mais</b> aos 12 meses</div></div>
+        <div><div class="n" id="k-payback">—</div><div class="l">meses até o doador <b>pagar o CAC</b></div></div>
+        <div><div class="n" id="k-lost">—</div><div class="l">doadores <b>pagos e perdidos</b> antes do payback (atual → com jornada)</div></div>
+        <div><div class="n p" id="k-net">—</div><div class="l">resultado líquido <b>adicional</b> a 36 meses</div></div>
+      </div>
+      <svg id="c1" viewBox="0 0 860 320" role="img" aria-label="Gráfico de doadores ativos por mês, cenário atual e com jornada"></svg>
+      <div class="legend"><span><i class="b"></i>cenário atual</span><span><i class="i"></i>com jornada</span><span><i class="d"></i>payback do CAC</span></div>
+    </section>
+
+    <div class="two">
+      <section>
+        <h3>Projeção</h3>
+        <table id="t1">
+          <thead><tr><th>Indicador</th><th>Atual</th><th>Com jornada</th><th>Diferença</th></tr></thead>
+          <tbody></tbody>
+          <tfoot></tfoot>
+        </table>
+        <p class="note">Receita = doadores ativos × donativo médio, por mês. Comissões = doadores que atingem a cobrança n.º <span id="feem-echo">2</span> × CAC.</p>
+      </section>
+      <section>
+        <h3>Receita acumulada vs. comissões pagas</h3>
+        <svg id="c2" viewBox="0 0 520 300" role="img" aria-label="Receita acumulada e comissões acumuladas por mês"></svg>
+        <div class="legend"><span><i class="b"></i>receita — atual</span><span><i class="i"></i>receita — com jornada</span><span><i class="d"></i>comissões pagas (com jornada)</span></div>
+        <p class="note">Break-even (receita acumulada iguala as comissões pagas): <b id="be-b">—</b> no cenário atual; <b id="be-i">—</b> com jornada.</p>
+      </section>
+    </div>
+
+    <h3>Controlo das comissões à agência, mês a mês</h3>
+    <p class="note" style="margin:0 0 8px">Quantos doadores de cada coorte chegam à cobrança que desencadeia a comissão, e quanto fica devido nesse mês. Cenário com jornada. Serve de referência para validar a fatura da agência; a regra contratual exata deve ser confirmada pela organização.</p>
+    <div class="comm"><table id="t2"><thead><tr><th>Mês</th><th>Novos doadores</th><th>Atingem a cobrança n.º <span class="feem-echo">2</span></th><th>Comissão devida</th><th>Acumulado</th></tr></thead><tbody></tbody></table></div>
+  </main>
+</div>
+
+<footer>
+  <span>Fontes: M+R Benchmarks 2026 (mrbenchmarks.com/fundraising); Dataro, Recurring Giving Benchmark 2024 e análise de retenção (fev/2025). Pressupostos a validar pela organização.</span>
+  <span>TwoPurpose Portugal · preparado com apoio de IA e revisto pela equipa</span>
+</footer>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const IDS=['donors','months','gift','cac','feem','c60b','c60i','failb','faili','recb','reci','r12b','r12i'];
+  const DEF={donors:10,months:12,gift:10,cac:100,feem:2,c60b:10,c60i:8,failb:10,faili:10,recb:0,reci:50,r12b:71,r12i:76};
+  const H=36, R24_OVER_R12=55/71, LATE=0.015;
+  const fmtN=x=>Math.round(x).toLocaleString('pt-PT');
+  const fmtE=x=>Math.round(x).toLocaleString('pt-PT')+' €';
+  const fmtP=x=>Math.round(x*100)+'%';
+
+  function survival(c60,fail,rec,r12){
+    const inv=1-fail*(1-rec);
+    const s2=(1-c60)*inv;
+    let ret12=Math.min(r12*inv,s2);
+    const ret24=ret12*R24_OVER_R12;
+    const anchors=[[0,1],[2,s2],[12,ret12],[24,ret24]];
+    const S=[];
+    for(let m=0;m<=H;m++){
+      if(m<=24){for(let k=0;k<3;k++){const[a,va]=anchors[k],[b,vb]=anchors[k+1];if(m>=a&&m<=b){S.push(va+(vb-va)*(m-a)/(b-a));break;}}}
+      else S.push(ret24*Math.pow(1-LATE,m-24));
+    }
+    return S;
+  }
+  function run(S,p){
+    const active=Array(H+1).fill(0),rev=Array(H+1).fill(0),fee=Array(H+1).fill(0),feeN=Array(H+1).fill(0);
+    for(let c=0;c<p.months;c++)for(let m=0;m<=H;m++){const age=m-c;if(age<0)continue;const n=p.donors*S[age];active[m]+=n;rev[m]+=n*p.gift;if(age===p.feem){fee[m]+=n*p.cac;feeN[m]+=n;}}
+    const cum=a=>{let t=0;return a.map(v=>t+=v)};
+    const cumRev=cum(rev),cumFee=cum(fee);
+    const total=p.donors*p.months, paid=total*S[p.feem];
+    const payback=p.gift>0?p.cac/p.gift:Infinity;
+    const pbIdx=Math.min(H,Math.round(payback));
+    const lost=total*(S[p.feem]-S[pbIdx]);
+    let be=null;for(let m=0;m<=H;m++){if(cumRev[m]>=cumFee[m]&&cumFee[m]>0&&m>=p.feem){be=m;break;}}
+    return {S,active,rev,fee,feeN,cumRev,cumFee,total,paid,payback,lost,be};
+  }
+  function read(){const p={};IDS.forEach(k=>p[k]=parseFloat($(k).value));if(!(p.months>0))p.months=1;p.feem=Math.max(1,Math.min(6,Math.round(p.feem||2)));return p;}
+
+  function line(pts,color,dash){return `<path d="${pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join('')}" fill="none" stroke="${color}" stroke-width="2.5" ${dash?'stroke-dasharray="6 5"':''} stroke-linejoin="round"/>`;}
+  function axes(W,Hh,pad,ymax,yfmt,xlab){
+    let s='<g class="axis">';
+    const ticks=5;
+    for(let i=0;i<=ticks;i++){const y=pad.t+(Hh-pad.t-pad.b)*(1-i/ticks);const v=ymax*i/ticks;s+=`<line class="grid-l" x1="${pad.l}" x2="${W-pad.r}" y1="${y}" y2="${y}"/><text x="${pad.l-8}" y="${y+4}" text-anchor="end">${yfmt(v)}</text>`;}
+    for(let m=0;m<=H;m+=6){const x=pad.l+(W-pad.l-pad.r)*m/H;s+=`<text x="${x}" y="${Hh-pad.b+16}" text-anchor="middle">${m}</text>`;}
+    s+=`<text x="${W-pad.r}" y="${Hh-4}" text-anchor="end">${xlab}</text></g>`;return s;}
+  function nice(v){const p=Math.pow(10,Math.floor(Math.log10(v||1)));const f=v/p;const n=f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10;return n*p;}
+
+  function draw(){
+    const p=read();
+    const Sb=survival(p.c60b/100,p.failb/100,p.recb/100,p.r12b/100);
+    const Si=survival(p.c60i/100,p.faili/100,p.reci/100,p.r12i/100);
+    const b=run(Sb,p),i=run(Si,p);
+
+    $('k-extra').textContent='+'+fmtN(i.active[12]-b.active[12]);
+    $('k-payback').textContent=isFinite(b.payback)?(Math.round(b.payback*10)/10).toLocaleString('pt-PT'):'—';
+    $('k-lost').textContent=fmtN(b.lost)+' → '+fmtN(i.lost);
+    const netDelta=(i.cumRev[H]-i.cumFee[H])-(b.cumRev[H]-b.cumFee[H]);
+    $('k-net').textContent=(netDelta>=0?'+':'−')+fmtE(Math.abs(netDelta));
+    document.querySelectorAll('.feem-echo,#feem-echo').forEach(e=>e.textContent=p.feem);
+
+    // chart 1: active donors
+    const W=860,Hh=320,pad={l:46,r:16,t:12,b:34};
+    const ymax=nice(Math.max(...i.active,...b.active)*1.08);
+    const X=m=>pad.l+(W-pad.l-pad.r)*m/H, Y=v=>pad.t+(Hh-pad.t-pad.b)*(1-v/ymax);
+    let s=axes(W,Hh,pad,ymax,v=>fmtN(v),'meses desde o arranque');
+    s+=line(b.active.map((v,m)=>[X(m),Y(v)]),'var(--base)');
+    s+=line(i.active.map((v,m)=>[X(m),Y(v)]),'var(--impr)');
+    if(isFinite(b.payback)&&b.payback<=H){const x=X(b.payback);s+=`<line x1="${x}" x2="${x}" y1="${pad.t}" y2="${Hh-pad.b}" stroke="var(--ink)" stroke-dasharray="4 4" stroke-width="1.5"/><text x="${x+6}" y="${pad.t+12}" style="font-size:11px;fill:var(--ink);font-weight:600">payback · mês ${Math.round(b.payback)}</text>`;}
+    // acquisition window shade
+    s+=`<rect x="${X(0)}" y="${pad.t}" width="${X(p.months)-X(0)}" height="${Hh-pad.t-pad.b}" fill="var(--mint)" opacity=".35"/><text x="${X(0)+6}" y="${Hh-pad.b-8}" style="font-size:11px;fill:var(--muted)">aquisição: ${p.months} meses</text>`;
+    $('c1').innerHTML=s;
+
+    // table 1
+    const rows=[
+      ['Doadores adquiridos',fmtN(b.total),fmtN(i.total),''],
+      ['Doadores ativos aos 12 meses',fmtN(b.active[12]),fmtN(i.active[12]),'+'+fmtN(i.active[12]-b.active[12])],
+      ['Doadores ativos aos 24 meses',fmtN(b.active[24]),fmtN(i.active[24]),'+'+fmtN(i.active[24]-b.active[24])],
+      ['Retenção da coorte aos 2 / 6 / 12 meses',fmtP(Sb[2])+' / '+fmtP(Sb[6])+' / '+fmtP(Sb[12]),fmtP(Si[2])+' / '+fmtP(Si[6])+' / '+fmtP(Si[12]),''],
+      ['Receita acumulada a 12 meses',fmtE(b.cumRev[12]),fmtE(i.cumRev[12]),'+'+fmtE(i.cumRev[12]-b.cumRev[12])],
+      ['Receita acumulada a 24 meses',fmtE(b.cumRev[24]),fmtE(i.cumRev[24]),'+'+fmtE(i.cumRev[24]-b.cumRev[24])],
+      ['Receita acumulada a 36 meses',fmtE(b.cumRev[H]),fmtE(i.cumRev[H]),'+'+fmtE(i.cumRev[H]-b.cumRev[H])],
+      ['Comissões pagas à agência',fmtE(b.cumFee[H]),fmtE(i.cumFee[H]),'+'+fmtE(i.cumFee[H]-b.cumFee[H])],
+      ['Doadores pagos que cancelam antes do payback',fmtN(b.lost),fmtN(i.lost),'−'+fmtN(b.lost-i.lost)],
+    ];
+    $('t1').querySelector('tbody').innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="delta">${r[3]}</td></tr>`).join('');
+    $('t1').querySelector('tfoot').innerHTML=`<tr><td>Resultado líquido a 36 meses (receita − comissões)</td><td>${fmtE(b.cumRev[H]-b.cumFee[H])}</td><td>${fmtE(i.cumRev[H]-i.cumFee[H])}</td><td class="delta">${(netDelta>=0?'+':'−')+fmtE(Math.abs(netDelta))}</td></tr>`;
+
+    // chart 2: cumulative revenue vs fees
+    const W2=520,H2=300,p2={l:56,r:12,t:12,b:34};
+    const ymax2=nice(Math.max(i.cumRev[H],b.cumRev[H],i.cumFee[H])*1.08);
+    const X2=m=>p2.l+(W2-p2.l-p2.r)*m/H, Y2=v=>p2.t+(H2-p2.t-p2.b)*(1-v/ymax2);
+    let s2=axes(W2,H2,p2,ymax2,v=>fmtN(v/1000)+' k€','meses');
+    s2+=line(b.cumRev.map((v,m)=>[X2(m),Y2(v)]),'var(--base)');
+    s2+=line(i.cumRev.map((v,m)=>[X2(m),Y2(v)]),'var(--impr)');
+    s2+=line(i.cumFee.map((v,m)=>[X2(m),Y2(v)]),'var(--ink)',true);
+    $('c2').innerHTML=s2;
+    $('be-b').textContent=b.be===null?'não atingido em 36 meses':'mês '+b.be;
+    $('be-i').textContent=i.be===null?'não atingido em 36 meses':'mês '+i.be;
+
+    // table 2: commissions by month (improved scenario)
+    let acc=0,tb='';
+    for(let m=0;m<=H;m++){if(i.feeN[m]<=0&&m>p.months+p.feem)break;acc+=i.fee[m];const nd=m<p.months?p.donors:0;tb+=`<tr><td>${m+1}</td><td>${nd?fmtN(nd):'—'}</td><td>${i.feeN[m]?fmtN(i.feeN[m]):'—'}</td><td>${i.fee[m]?fmtE(i.fee[m]):'—'}</td><td>${fmtE(acc)}</td></tr>`;}
+    $('t2').querySelector('tbody').innerHTML=tb;
+  }
+  // Sobreposição por parâmetros de URL: ?donors=10&cac=120…
+  // Também substitui os valores por defeito, para que «Repor valores por defeito»
+  // reponha os valores do URL e não os genéricos.
+  (function applyQuery(){
+    const qs=new URLSearchParams(window.location.search);
+    IDS.forEach(k=>{
+      if(!qs.has(k))return;
+      const raw=(qs.get(k)||'').trim();
+      if(raw==='')return;
+      const v=Number(raw);
+      if(!Number.isFinite(v))return;
+      DEF[k]=v;
+      $(k).value=v;
+    });
+  })();
+
+  IDS.forEach(k=>$(k).addEventListener('input',draw));
+  $('reset').addEventListener('click',()=>{IDS.forEach(k=>$(k).value=DEF[k]);draw();});
+  draw();
+})();
+</script>
+</body>
+</html>
