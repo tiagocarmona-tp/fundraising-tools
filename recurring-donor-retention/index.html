@@ -107,7 +107,7 @@
   body.embed header{display:none}
   body.embed .wrap{height:100%;max-width:none;padding:12px 14px 6px;display:flex;flex-direction:column}
   body.embed .grid{flex:1 1 auto;min-height:0;grid-template-columns:300px minmax(0,1fr);gap:20px;align-items:stretch}
-  body.embed .ficha{min-height:0;max-height:100%;overflow:auto;padding:14px 14px 6px}
+  body.embed .ficha{align-self:start;min-height:0;max-height:100%;overflow:auto;padding:14px 14px 6px}
   body.embed main{min-height:0;overflow:auto;padding-right:6px}
   body.embed .hero{padding-bottom:12px;margin-bottom:12px}
   body.embed .hero h2{font-size:16px}
@@ -320,7 +320,23 @@
   }
   // Parâmetros de URL: ?embed=1 esconde o cabeçalho; qualquer id de input pode ser pré-preenchido (ex.: ?cac=120&gift=10)
   const Q=new URLSearchParams(window.location.search);
-  if(Q.get('embed')==='1'){document.body.classList.add('embed');if(window.innerWidth<=720)$('ficha').removeAttribute('open');}
+  if(Q.get('embed')==='1'){
+    document.body.classList.add('embed');
+    // O Notion (e outros anfitriões) montam o iframe estreito e só depois o alargam.
+    // Decidir o colapso uma única vez no arranque deixava a ficha fechada num embed
+    // largo, por isso reavalia-se sempre que se cruza o limiar — a não ser que o
+    // utilizador já a tenha aberto ou fechado à mão.
+    const ficha=$('ficha'), mq=window.matchMedia('(max-width:720px)');
+    let manual=false;
+    ficha.querySelector('summary').addEventListener('click',()=>{manual=true;});
+    const syncFicha=()=>{
+      if(manual)return;
+      if(mq.matches)ficha.removeAttribute('open');
+      else ficha.setAttribute('open','');
+    };
+    syncFicha();
+    mq.addEventListener('change',syncFicha);
+  }
   IDS.forEach(k=>{if(Q.has(k)){const v=parseFloat(Q.get(k));if(Number.isFinite(v)){$(k).value=v;DEF[k]=v;}}});
   IDS.forEach(k=>$(k).addEventListener('input',draw));
   $('reset').addEventListener('click',()=>{IDS.forEach(k=>$(k).value=DEF[k]);draw();});
